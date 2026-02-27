@@ -19,9 +19,7 @@ const validarVazio = function(valor){
 }
 
 const validarNome = function(nome){
-    let nomeVazioValidado = validarVazio(nome)
-
-    if(!nomeVazioValidado){
+    if(!validarVazio(nome)){
         return false
     }
 
@@ -49,9 +47,7 @@ const validarNumero = function(numero){
 }
 
 const validarSexo = function(sexoOpcao){
-    let vazioSexoValidado = validarVazio(sexoOpcao)
-
-    if(!vazioSexoValidado){
+    if(!validarVazio(sexoOpcao)){
         return false 
     }
 
@@ -93,15 +89,13 @@ const validarSexo = function(sexoOpcao){
 }
 
 const validarSequenciaInicialFinal = function(inicial, final){
-    let intervaloInicialValidado = validarNumero(inicial)
-    let IntervaloFinalValidado   = validarNumero(final)
-
-    if(!intervaloInicialValidado || !IntervaloFinalValidado){
+    
+    if(!validarNumero(inicial) || !validarNumero(final)){
         return false
     }
 
-    let valorInicial = inicial
-    let valorFinal   = final
+    let valorInicial = Number(inicial)
+    let valorFinal   = Number(final)
     
     if(valorInicial < valorFinal){
         return true
@@ -112,9 +106,7 @@ const validarSequenciaInicialFinal = function(inicial, final){
 }
 
 const validarNumeroInteiro = function(numero){
-    let numeroVazioValido = validarNumero(numero)
-
-    if(!numeroVazioValido){
+    if(!validarNumero(numero)){
         return false
     }
 
@@ -129,13 +121,11 @@ const validarNumeroInteiro = function(numero){
 }
 
 const validarNumeroPositivo = function(numero){
-    let numeroVazioValidado = validarNumero(numero)
-
-    if(!numeroVazioValidado){
+    if(!validarNumero(numero)){
         return false
     }
 
-    let numeroPositivo = numero
+    let numeroPositivo = Number(numero)
 
     if(numeroPositivo <= 0 ){
         return false
@@ -146,9 +136,7 @@ const validarNumeroPositivo = function(numero){
 }
 
 const validarIntervaloNumerico = function(valor, numero1, numero2){
-    let valorValidado = validarNumero(valor)
-    
-    if (!valorValidado){
+    if (!validarNumero(valor)){
         return false
     }
 
@@ -162,4 +150,15 @@ const validarIntervaloNumerico = function(valor, numero1, numero2){
     }else{
         return false
     }
+}
+
+module.exports ={
+    validarVazio,
+    validarNome,
+    validarNumero,
+    validarSexo,
+    validarSequenciaInicialFinal,
+    validarNumeroInteiro,
+    validarNumeroPositivo,
+    validarIntervaloNumerico
 }
