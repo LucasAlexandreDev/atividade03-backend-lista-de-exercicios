@@ -136,7 +136,7 @@ const validarNumeroPositivo = function(numero){
 }
 
 const validarIntervaloNumerico = function(valor, numero1, numero2){
-    if (!validarNumero(valor)){
+    if (!validarNumero(valor) || !validarNumero(numero1) || !validarNumero(numero2)){
         return false
     }
 
