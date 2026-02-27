@@ -7,13 +7,159 @@
 
 ****************************************************************************/
 
-const Usuariovalido = function(nomeUsuario){
-    let nomeValidado = String(nomeUsuario)
+const validarVazio = function(valor){
+    let valorValidado = valor
 
-    if(nomeValidado = ''){
+    if(valorValidado == ''){
         return false
 
     }else{
         return true
+    }
+}
+
+const validarNome = function(nome){
+    let nomeVazioValidado = validarVazio(nome)
+
+    if(!nomeVazioValidado){
+        return false
+    }
+
+    let nomeValidado = String(nome).trim()
+
+    const regex = /^[\p{L}]+$/u
+
+    if(!regex.test(nomeValidado)){
+        return false
+
+    }else{
+        return true
+    }
+}
+
+const validarNumero = function(numero){
+    let numeroValidado = Number(numero)
+
+    if(isNaN(numeroValidado)){
+        return false
+
+    }else{
+        return true
+    }
+}
+
+const validarSexo = function(sexoOpcao){
+    let vazioSexoValidado = validarVazio(sexoOpcao)
+
+    if(!vazioSexoValidado){
+        return false 
+    }
+
+    /*
+    Normalização Unicode (NFD):
+
+    ->  Separa letra base do diacrítico combinável (acento)
+    ->  Permite remover apenas o acento, mantendo a letra
+
+
+    Exemplos após normalização:
+    
+    'ê' -> 'e' + U+0302 (circunflexo combinável)
+    'ã' -> 'a' + U+0303 (til combinável)
+    'ç' -> 'c' + U+0327 (cedilha combinável)
+
+
+    regex para remover caracteres de acentuação após normalização:
+
+    [ ]              -> define um conjunto de caracteres
+    \u0300-\u036f    -> intervalo Unicode dos diacríticos (acentos combinados)
+    g                -> aplica a substituição em toda a string (global)
+    ""               -> substitui cada ocorrência por nada (remove o acento)
+
+    replace("", ...) -> substitui os caracteres encontrados por string vazia
+    */
+
+    let genero = sexoOpcao.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+
+    if(genero == 'm'       || genero == 'masculino'|| genero == 'homem'  || genero == 'menino' || genero == 'garoto' || genero == 'macho'){
+        return 'masculino'
+
+    }else if(genero == 'f' || genero == 'feminino' || genero == 'mulher' || genero == 'menina' || genero == 'garota' || genero == 'femea'){
+        return 'feminino'
+
+    }else{
+        return false
+    }
+}
+
+const validarSequenciaInicialFinal = function(inicial, final){
+    let intervaloInicialValidado = validarNumero(inicial)
+    let IntervaloFinalValidado   = validarNumero(final)
+
+    if(!intervaloInicialValidado || !IntervaloFinalValidado){
+        return false
+    }
+
+    let valorInicial = inicial
+    let valorFinal   = final
+    
+    if(valorInicial < valorFinal){
+        return true
+
+    }else{
+        return false
+    }
+}
+
+const validarNumeroInteiro = function(numero){
+    let numeroVazioValido = validarNumero(numero)
+
+    if(!numeroVazioValido){
+        return false
+    }
+
+    let numeroValidado = Number(numero)
+
+    if(Number.isInteger(numeroValidado)){
+        return true
+
+    }else{
+        return false
+    }
+}
+
+const validarNumeroPositivo = function(numero){
+    let numeroVazioValidado = validarNumero(numero)
+
+    if(!numeroVazioValidado){
+        return false
+    }
+
+    let numeroPositivo = numero
+
+    if(numeroPositivo <= 0 ){
+        return false
+
+    }else{
+        return true
+    }
+}
+
+const validarIntervaloNumerico = function(valor, numero1, numero2){
+    let valorValidado = validarNumero(valor)
+    
+    if (!valorValidado){
+        return false
+    }
+
+    let valorConvertido = Number(valor)
+    let valorMinimo     = Number(numero1)
+    let valorMaximo     = Number(numero2)
+
+    if (valorConvertido >= valorMinimo && valorConvertido <= valorMaximo){
+        return true
+
+    }else{
+        return false
     }
 }
