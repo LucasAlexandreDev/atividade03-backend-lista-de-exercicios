@@ -36,14 +36,29 @@ const validarNome = function(nome){
 }
 
 const validarNumero = function(numero){
-    let numeroValidado = Number(numero)
+    if(!validarVazio(numero)){
+        return false
+    }
 
+    let numeroConvertido = String(numero).trim().replace(',', '.')
+
+    let numeroValidado = Number(numeroConvertido)
+    
     if(isNaN(numeroValidado)){
         return false
 
     }else{
         return true
     }
+}
+
+const converterNumeroComVirgula = function(valor){
+    if(!validarNumero(valor)){
+        return false
+    }
+
+    let numeroConvertido = String(valor).trim().replace(',', '.')
+    return Number(numeroConvertido)
 }
 
 const validarSexo = function(sexoOpcao){
@@ -88,15 +103,14 @@ const validarSexo = function(sexoOpcao){
     }
 }
 
-const validarSequenciaInicialFinal = function(inicial, final){
-    
-    if(!validarNumero(inicial) || !validarNumero(final)){
+const validarSequenciaInicialFinal = function(inicial, final) {
+    let valorInicial = converterNumeroComVirgula(inicial)
+    let valorFinal = converterNumeroComVirgula(final)
+
+    if(valorInicial == false || valorFinal == false){
         return false
     }
 
-    let valorInicial = Number(inicial)
-    let valorFinal   = Number(final)
-    
     if(valorInicial < valorFinal){
         return true
 
@@ -105,60 +119,73 @@ const validarSequenciaInicialFinal = function(inicial, final){
     }
 }
 
-const validarNumeroInteiro = function(numero){
-    if(!validarNumero(numero)){
+const validarNumeroInteiro = function(numero) {
+    let numeroValidado = converterNumeroComVirgula(numero)
+
+    if(numeroValidado == false) {
         return false
     }
 
-    let numeroValidado = Number(numero)
-
-    if(Number.isInteger(numeroValidado)){
+    if(Number.isInteger(numeroValidado)) {
         return true
-
+    
     }else{
         return false
     }
 }
 
-const validarNumeroPositivo = function(numero){
-    if(!validarNumero(numero)){
+const validarNumeroPositivo = function(numero) {
+    let numeroPositivo = converterNumeroComVirgula(numero)
+
+    if(!numeroPositivo || numeroPositivo <= 0) {
         return false
-    }
-
-    let numeroPositivo = Number(numero)
-
-    if(numeroPositivo <= 0 ){
-        return false
-
+    
     }else{
         return true
     }
 }
 
-const validarIntervaloNumerico = function(valor, numero1, numero2){
-    if (!validarNumero(valor) || !validarNumero(numero1) || !validarNumero(numero2)){
+const validarIntervaloNumerico = function(valor, numero1, numero2) {
+    let valorConvertido = converterNumeroComVirgula(valor)
+    let valorMinimo     = converterNumeroComVirgula(numero1)
+    let valorMaximo     = converterNumeroComVirgula(numero2)
+
+    // Verifica se qualquer uma das conversões falhou
+    if(valorConvertido === false || valorMinimo === false || valorMaximo === false) {
         return false
     }
 
-    let valorConvertido = Number(valor)
-    let valorMinimo     = Number(numero1)
-    let valorMaximo     = Number(numero2)
-
-    if (valorConvertido >= valorMinimo && valorConvertido <= valorMaximo){
+    if(valorConvertido >= valorMinimo && valorConvertido <= valorMaximo) {
         return true
-
+    
     }else{
         return false
     }
+}
+
+const validarIniciarProgramaNovamente = function(resposta) {
+    let respostaTratada = resposta.trim().toLowerCase()
+
+    if(respostaTratada      == 's'  || respostaTratada == 'sim'){
+        return true
+    
+    }else if(respostaTratada == 'n' || respostaTratada == 'não'){
+        return false
+
+    }else{
+        return null
+    } 
 }
 
 module.exports ={
     validarVazio,
     validarNome,
     validarNumero,
+    converterNumeroComVirgula,
     validarSexo,
     validarSequenciaInicialFinal,
     validarNumeroInteiro,
     validarNumeroPositivo,
-    validarIntervaloNumerico
+    validarIntervaloNumerico,
+    validarIniciarProgramaNovamente
 }

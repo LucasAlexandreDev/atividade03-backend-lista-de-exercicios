@@ -1,4 +1,4 @@
- /*************************************************************************** 
+/*************************************************************************** 
 
 * Objetivo: Arquivo responsável pelas funções de calculo IMC
 * Dev: Lucas Alexandre da Silva
@@ -7,26 +7,16 @@
 
 ****************************************************************************/
 
-const validacao = require('../validacaoDados.js')
-
-const calculoDoImc = function(peso, altura){
-    if( !validacao.validarVazio(peso)          || !validacao.validarVazio(altura)  || 
-        !validacao.validarNumero(peso)         || !validacao.validarNumero(altura) ||
-        !validacao.validarNumeroPositivo(peso) || !validacao.validarNumeroPositivo(altura)){
-
-        return false    
-    }        
-    
+const calcularImc = function(peso, altura){    
     let valorPeso   = Number(peso)
     let valorAltura = Number(altura)
-    let resultadoImc
-
-    resultadoImc = valorPeso / (valorAltura * valorAltura) 
     
-    return resultadoImc
+    let resultadoImc = valorPeso / (valorAltura * valorAltura) 
+    
+    return Number(resultadoImc.toFixed(2))
 }
 
+
 module.exports ={
-    calculoDoImc
-    
+  calcularImc 
 }
