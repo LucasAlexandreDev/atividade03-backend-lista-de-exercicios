@@ -8,15 +8,19 @@
 const erros = function(tipoErro){
 
     const mensagens = {
-
+        // campos obrigatórios
         camposObrigatorios: 'Preencha todos os campos obrigatórios.',
         nomeObrigatorio: 'O nome do paciente é obrigatório.',
         pesoObrigatorio: 'O peso é obrigatório.',
         alturaObrigatoria: 'A altura é obrigatória.',
+        
+        // medidas 
         pesoInvalido: 'Informe um peso válido (ex: 70 ou 70.5).',
         alturaInvalida: 'Informe uma altura válida em metros (ex: 1.75).',
         pesoZeroOuNegativo: 'O peso deve ser maior que zero.',
         alturaZeroOuNegativa: 'A altura deve ser maior que zero.',
+        
+        // opção inválida - reinicar o sistema
         iniciarNovamenteInvalida: 'Opção inválida! Digite "s" para sim ou "n" para não.'
     }
 

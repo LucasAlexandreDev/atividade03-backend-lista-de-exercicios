@@ -7,6 +7,7 @@
 
 ****************************************************************************/
 
+// função que cálcula o IMC
 const calcularImc = function(peso, altura){    
     let valorPeso   = Number(peso)
     let valorAltura = Number(altura)

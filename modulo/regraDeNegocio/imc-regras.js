@@ -7,6 +7,7 @@
 
 ****************************************************************************/
 
+// função que com o resultado do IMC, classifica o peso do paciente
 const classificarImc = function(resultadoImc){
     let classificacaoPeso
 
@@ -35,6 +36,7 @@ const classificarImc = function(resultadoImc){
     return classificacaoPeso
 }
 
+// função que com o resultado da classificação peso, gera o diagnóstico do paciente
 const definirDiagnosticoPaciente = function(classificacao){
     let resultadoDiagnostico
 
