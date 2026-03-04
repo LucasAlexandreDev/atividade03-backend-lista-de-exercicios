@@ -7,41 +7,38 @@
 
 ****************************************************************************/
 
-const gerarLinhaTabuada = function(numeroInicial, numeroFinal) {
-    let multiplicando = Number(numeroInicial)
-    let multiplicador = Number(numeroFinal)
-
-    let resultadoLinha = multiplicando * multiplicador
-
-    return `${multiplicando} x ${multiplicador} = ${resultadoLinha}\n`
-}
-
 const gerarTabuada = function(valorTabuadaInicial, valorTabuadaFinal, valorInicial, valorFinal) {
     let tabuadaInicial  = Number(valorTabuadaInicial)
     let tabuadaFInal    = Number(valorTabuadaFinal)
-    let ContadorFinal   = Number(valorFinal)
-    
-    let resultadoFinal = ''
+    let contadorFinal   = Number(valorFinal)
 
+    // enquanto a tabuada inicial for menor ou igual à final
     while (tabuadaInicial <= tabuadaFInal) {
-        resultadoFinal += `Tabuada do ${tabuadaInicial}\n`
         
+        // mostre no console qual tabuada está sendo exibida
+        console.log(`\nTabuada do ${tabuadaInicial}`)
+        
+        // defina o número inicial da multiplicação
         let contadorInicial = Number(valorInicial)
 
-        while (contadorInicial <= ContadorFinal) {
-            resultadoFinal += gerarLinhaTabuada(tabuadaInicial, contadorInicial)
+        // enquanto o contador for menor ou igual ao valor final
+        while (contadorInicial <= contadorFinal){
             
+            // calcule  a multiplicação
+            let resultadoMultiplicacao = tabuadaInicial * contadorInicial
+            
+            // mostre o resultado no console
+            console.log(`${tabuadaInicial} x ${contadorInicial} = ${resultadoMultiplicacao}`)
+            
+            // incrementa o contador até chegar no contador final
             contadorInicial++
         }
-        
-        resultadoFinal  += '\n'
-        tabuadaInicial  ++
-    }
 
-    return resultadoFinal
+        // gera a próxima tabuada até chegar na tabuada final
+        tabuadaInicial ++
+    }
 }
 
 module.exports ={
-    gerarLinhaTabuada,
     gerarTabuada
 }

@@ -151,8 +151,6 @@ const iniciarPrograma = function(){
                                             }else{
                                                 iniciarProgramaMediaExame(definicaoAluno, nomeAluno, nota1Convertida, nota2Convertida, nota3Convertida, nota4Convertida, nomeDisciplina, nomeCurso, definicaoProfessor, nomeProfessor, media)
                                             }
-                                            
-                                            
                                         })
                                     })
                                 })
@@ -184,7 +182,6 @@ const iniciarProgramaMediaExame = function(definicaoAluno, nomeAluno, nota1Conve
         }else if(!validacao.validarIntervaloNumerico(notaExame, 0, 100)){
             console.log(tipoErro.erros('notaExameForaDoIntervalo'))
             return iniciarProgramaNovamente()
-        
         }
 
         // conversão de dados
@@ -195,7 +192,7 @@ const iniciarProgramaMediaExame = function(definicaoAluno, nomeAluno, nota1Conve
         let statusAlunoExame = regras.analisarStatusDoAlunoDeExame(mediaExame)
         
         // exibição do relátorio do aluno
-            let resultadoRelatorio = regras.exibirResultadoFormularioExame(definicaoAluno, nomeAluno, nota1Convertida, nota2Convertida, nota3Convertida, nota4Convertida, notaExameValida, statusAlunoExame, nomeDisciplina, nomeCurso, definicaoProfessor, nomeProfessor, media, mediaExame)
+        let resultadoRelatorio = regras.exibirResultadoFormularioExame(definicaoAluno, nomeAluno, nota1Convertida, nota2Convertida, nota3Convertida, nota4Convertida, notaExameValida, statusAlunoExame, nomeDisciplina, nomeCurso, definicaoProfessor, nomeProfessor, media, mediaExame)
 
         console.log(resultadoRelatorio)
 
@@ -204,7 +201,7 @@ const iniciarProgramaMediaExame = function(definicaoAluno, nomeAluno, nota1Conve
     })
 } 
 
-
+// função responsável por perguntar ao usuário se deseja realizar um novo cálculo
 const iniciarProgramaNovamente = function(){
     // entrada de dados do usuário se deseja continuar
     entradaDeDados.question('Deseja realizar outro cálculo? (s/n): ', function(resposta){
@@ -227,5 +224,3 @@ const iniciarProgramaNovamente = function(){
         }    
     })
 }
-
-iniciarPrograma()
