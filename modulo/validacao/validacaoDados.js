@@ -137,7 +137,7 @@ const validarNumeroInteiro = function(numero) {
 const validarNumeroPositivo = function(numero) {
     let numeroPositivo = converterNumeroComVirgula(numero)
 
-    if(!numeroPositivo || numeroPositivo <= 0) {
+    if(numeroPositivo == false || numeroPositivo <= 0) {
         return false
     
     }else{
@@ -147,15 +147,12 @@ const validarNumeroPositivo = function(numero) {
 
 const validarIntervaloNumerico = function(valor, numero1, numero2) {
     let valorConvertido = converterNumeroComVirgula(valor)
-    let valorMinimo     = converterNumeroComVirgula(numero1)
-    let valorMaximo     = converterNumeroComVirgula(numero2)
 
-    // Verifica se qualquer uma das conversões falhou
-    if(valorConvertido === false || valorMinimo === false || valorMaximo === false) {
+    if(valorConvertido == false) {
         return false
     }
 
-    if(valorConvertido >= valorMinimo && valorConvertido <= valorMaximo) {
+    if(valorConvertido >= numero1 && valorConvertido <= numero2) {
         return true
     
     }else{

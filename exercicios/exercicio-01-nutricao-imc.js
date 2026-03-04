@@ -35,12 +35,8 @@ const iniciarPrograma = function(){
             entradaDeDados.question('Digite a altura em (m): ', function(altura){
                 let alturaPaciente = altura
 
-                // conversão de dados 
-                const pesoFinal   = validacao.converterNumeroComVirgula(pesoPaciente)
-                const alturaFinal = validacao.converterNumeroComVirgula(alturaPaciente)
-            
                 // condição responsável por validar os erros de entrada do usuário
-                if(!validacao.validarVazio(nomePaciente) || !validacao.validarVazio(pesoPaciente) || !validacao.validarVazio(alturaPaciente)){
+                if(!validacao.validarVazio(nomePaciente) && !validacao.validarVazio(pesoPaciente) && !validacao.validarVazio(alturaPaciente)){
                     console.log(tipoErro.erros('camposObrigatorios'))
                     return iniciarProgramaNovamente()
 
@@ -48,30 +44,34 @@ const iniciarPrograma = function(){
                     console.log(tipoErro.erros('nomeObrigatorio'))
                     return iniciarProgramaNovamente()
 
-                }else if(!validacao.validarVazio(pesoPaciente)){
+                }else if(!validacao.validarVazio(peso)){
                     console.log(tipoErro.erros('pesoObrigatorio'))
                     return iniciarProgramaNovamente()
 
-                }else if(!validacao.validarVazio(alturaPaciente)){
+                }else if(!validacao.validarVazio(altura)){
                     console.log(tipoErro.erros('alturaObrigatoria'))
                     return iniciarProgramaNovamente()
 
-                }else if(!pesoFinal){
+                }else if(!validacao.validarNumero(peso)){
                     console.log(tipoErro.erros('pesoInvalido'))
                     return iniciarProgramaNovamente()
 
-                }else if(!alturaFinal){
+                }else if(!validacao.validarNumero(altura)){
                     console.log(tipoErro.erros('alturaInvalida'))
                     return iniciarProgramaNovamente()
 
-                }else if(!validacao.validarNumeroPositivo(pesoPaciente)){
+                }else if(!validacao.validarNumeroPositivo(peso)){
                     console.log(tipoErro.erros('pesoZeroOuNegativo'))
                     return iniciarProgramaNovamente()
 
-                }else if(!validacao.validarNumeroPositivo(alturaPaciente)){
+                }else if(!validacao.validarNumeroPositivo(altura)){
                     console.log(tipoErro.erros('alturaZeroOuNegativa'))
                     return iniciarProgramaNovamente()
                 }
+
+                 // conversão de dados 
+                const pesoFinal   = validacao.converterNumeroComVirgula(pesoPaciente)
+                const alturaFinal = validacao.converterNumeroComVirgula(alturaPaciente)
 
                 // execução dos cálculos e regras de negócios 
                 const resultadoImc       = calculo.calcularImc(pesoFinal, alturaFinal)
@@ -80,22 +80,26 @@ const iniciarPrograma = function(){
                 
                 // exibição da saída de dados e relatório
                 console.log()
-                console.log(
-                    `==================================================\n` +
-                    `        RELATÓRIO DE AVALIAÇÃO NUTRICIONAL\n` + 
-                    `==================================================\n\n` +
-                    `Paciente.............: ${nomePaciente}\n` +
-                    `Peso informado.......: ${pesoPaciente} kg\n` +
-                    `Altura informada.....: ${alturaPaciente} m\n` +
-                    `IMC Calculado........: ${resultadoImc}\n` +
-                    `Classificação........: ${classificarPesoImc}\n\n` +
-                    `==================================================\n` +
-                    `                   DIAGNÓSTICO\n` + 
-                    `==================================================\n\n` +
-                    `${diagnostico}\n\n` +
-                    `==================================================`
-                )
+                console.log(`
+==================================================
+        RELATÓRIO DE AVALIAÇÃO NUTRICIONAL
+==================================================
 
+Paciente.............: ${nomePaciente}
+Peso informado.......: ${pesoPaciente} kg
+Altura informada.....: ${alturaPaciente} m
+IMC Calculado........: ${resultadoImc}
+Classificação........: ${classificarPesoImc}
+
+==================================================
+                   DIAGNÓSTICO
+==================================================
+
+${diagnostico}
+
+==================================================
+`)
+                
                 // chama a função para o sistema reinicar novamente 
                 iniciarProgramaNovamente()
             })
