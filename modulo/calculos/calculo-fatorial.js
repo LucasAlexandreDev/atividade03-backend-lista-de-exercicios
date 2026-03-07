@@ -7,33 +7,70 @@
 
 ****************************************************************************/
 
-const gerarLinhaFatorial = function(numero) {
-    let numeroFatorial = Number(numero)
-
-    if (numeroFatorial > 1) {
-        return `${numeroFatorial} x `
-    } 
-    
-    return numeroFatorial
-}
-
 const gerarFatorial = function(numero){
-    let contadorInicial = Number(numero)
+    let contador = Number(numero)
+
+    // a variável do resultado fatorial começa com 1, pois será multiplicada pelos números da sequência
     let resultado = 1
-    let textoAcumulado = ''
+    let sequenciaMultiplicativa = ''
+    let exibirResultado
 
-    while (contadorInicial >= 1) {     
-        resultado = resultado * contador
-        
-        textoAcumulado += gerarLinhaFatorial(contadorInicial)
+    // enquanto o contador for maior que 1
+    while(contador > 1){
 
+        // multiplica o resultado pelo valor atual do contador
+        resultado *= contador
+
+        // adiciona o número atual na sequência seguido de 'x'
+        sequenciaMultiplicativa += contador + ' x '
+
+        // decrementa o contador para continuar a sequência
         contador--
     }
 
-    return `${textoAcumulado} = ${resultado}`
+    // quando o while termina, o contador vale 1, então fazemos a multiplicação
+    resultado *= contador
+
+    // adiciona o último número da sequência
+    sequenciaMultiplicativa += contador
+
+    // variável recebe a estilização da exibição do resultado
+    exibirResultado = `
+==================================================
+            RELATÓRIO DE CÁLCULO FATORIAL
+==================================================
+
+Número informado.....: ${numero}
+
+==================================================
+            SEQUÊNCIA MULTIPLICATIVA
+==================================================
+
+${numero}! = ${sequenciaMultiplicativa}
+
+==================================================
+                    RESULTADO
+==================================================
+
+Resultado do fatorial: ${resultado.toLocaleString('pt-BR')}
+
+==================================================
+`
+    return exibirResultado
 }
 
+/*
+toLocaleString() -> É um método onde converte um valor numérico em uma string, 
+aplicando formatação baseada em uma localidade (locale)
+
+
+Neste caso, o 'pt-BR' formata o número no padrão brasileiro,
+utilizando ponto (.) como separador de milhar
+    Ex: 123456789 -> 123.456.789
+*/
+
+
+
 module.exports ={
-    gerarLinhaFatorial,
     gerarFatorial
 }
