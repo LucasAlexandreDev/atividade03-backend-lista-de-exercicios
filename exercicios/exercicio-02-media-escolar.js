@@ -7,23 +7,14 @@
 
 ****************************************************************************/
 
-// import da biblioteca readline 
-const readline = require('readline')
-
-// criação do objeto que armazena a entrada de dados
-const entradaDeDados = readline.createInterface({
-    input:  process.stdin,
-    output: process.stdout
-})
-
 // import dos modulos internos da aplicação
-const validacao = require('../modulo/validacao/validacaoDados.js')
+const validacao = require('../modulo/validacao/validacao-dados.js')
 const tipoErro  = require('../modulo/mensagemErro/media-erros.js')
 const calculo   = require('../modulo/calculos/calculo-media.js')
 const regras    = require('../modulo/regraDeNegocio/media-regras.js')
 
 // função principal do programa
-const iniciarPrograma = function(){
+const iniciarPrograma = function(entradaDeDados, iniciarSistemaNovamente){
     
     // entrada de dados do usuário
     entradaDeDados.question('Digite o nome do aluno(a): ', function(nome){
@@ -64,63 +55,63 @@ const iniciarPrograma = function(){
                                                !validacao.validarVazio(nota3)          &&    !validacao.validarVazio(nota4)){
                                                 
                                                 console.log(tipoErro.erros('camposObrigatorios'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
                                             
                                             }else if(!validacao.validarVazio(nomeAluno)){
                                                 console.log(tipoErro.erros('nomeAlunoObrigatorio'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
                                             
                                             }else if(!validacao.validarVazio(nomeProfessor)){
                                                 console.log(tipoErro.erros('nomeProfessorObrigatorio'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
                                             
                                             }else if(!validacao.validarVazio(generoAluno)){
                                                 console.log(tipoErro.erros('sexoAlunoObrigatorio'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
 
                                             }else if(!validacao.validarVazio(generoProfessor)){
                                                 console.log(tipoErro.erros('sexoProfessorObrigatorio'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
                                             
                                             }else if(!validacao.validarVazio(nomeCurso)){
                                                 console.log(tipoErro.erros('cursoObrigatorio'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
 
                                             }else if(!validacao.validarVazio(nomeDisciplina)){
                                                 console.log(tipoErro.erros('disciplinaObrigatoria'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
 
                                             }else if(!validacao.validarVazio(nota1)){
                                                 console.log(tipoErro.erros('notaObrigatoria'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
 
                                             }else if(!validacao.validarVazio(nota2)){
                                                 console.log(tipoErro.erros('notaObrigatoria'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
 
                                             }else if(!validacao.validarVazio(nota3)){
                                                 console.log(tipoErro.erros('notaObrigatoria'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
 
                                             }else if(!validacao.validarVazio(nota4)){
                                                 console.log(tipoErro.erros('notaObrigatoria'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
                                             
                                             }else if(!validacao.validarSexo(generoAluno) || !validacao.validarSexo(generoProfessor)){
                                                 console.log(tipoErro.erros('sexoInvalido'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
                                             
                                             }else if(!validacao.validarNumero(nota1)  || !validacao.validarNumero(nota2) || 
                                                      !validacao.validarNumero(nota3)  || !validacao.validarNumero(nota4)){
                                                 
                                                 console.log(tipoErro.erros('notaInvalida'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
                                             
                                             }else if(!validacao.validarIntervaloNumerico(nota1, 0, 100) || !validacao.validarIntervaloNumerico(nota2, 0, 100) ||
                                                      !validacao.validarIntervaloNumerico(nota3, 0, 100) || !validacao.validarIntervaloNumerico(nota4, 0, 100)){
                                                 
                                                 console.log(tipoErro.erros('notaForaDoIntervalo'))
-                                                return iniciarProgramaNovamente()
+                                                return iniciarSistemaNovamente()
                                             }
                                             
                                             // definição de validar se é masculino ou feminino do aluno | professor 
@@ -196,31 +187,11 @@ const iniciarProgramaMediaExame = function(definicaoAluno, nomeAluno, nota1Conve
 
         console.log(resultadoRelatorio)
 
-        iniciarProgramaNovamente()
+        return iniciarSistemaNovamente()
 
     })
 } 
 
-// função responsável por perguntar ao usuário se deseja realizar um novo cálculo
-const iniciarProgramaNovamente = function(){
-    // entrada de dados do usuário se deseja continuar
-    entradaDeDados.question('Deseja realizar outro cálculo? (s/n): ', function(resposta){
-
-        let respostaUsuario = resposta  
-
-        const resultado = validacao.validarIniciarProgramaNovamente(respostaUsuario)
-
-        // condição que válida a resposta desejada pelo usuário
-        if(resultado == true){
-            iniciarPrograma()  
-        
-        }else if(resultado == false){
-            console.log('\nMuito obrigado por utilizar os serviços da Cálculos SA.\n*************************************************')
-            entradaDeDados.close()
-        
-        }else{
-            console.log(tipoErro.erros('iniciarNovamenteInvalida'))
-            iniciarProgramaNovamente()
-        }    
-    })
+module.exports ={
+    iniciarPrograma
 }

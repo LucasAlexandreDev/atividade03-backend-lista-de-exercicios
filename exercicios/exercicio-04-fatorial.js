@@ -7,21 +7,12 @@
 
 ****************************************************************************/
 
-// import da biblioteca readline 
-const readline = require('readline')
-
-// criação do objeto que armazena a entrada de dados
-const entradaDeDados = readline.createInterface({
-    input:  process.stdin,
-    output: process.stdout
-})
-
 // import dos modulos internos da aplicação
-const validacao = require('../modulo/validacao/validacaoDados.js')
+const validacao = require('../modulo/validacao/validacao-dados.js')
 const tipoErro  = require('../modulo/mensagemErro/fatorial-erros.js')
 const calculo   = require('../modulo/calculos/calculo-fatorial.js')
 
-const iniciarPrograma = function(){
+const iniciarPrograma = function(entradaDeDados, iniciarSistemaNovamente){
     // entrada de dados 
     entradaDeDados.question('Digite o número que deseja descobrir o seu fatorial: ', function(numero){
         let numeroFatorial = numero
@@ -29,19 +20,19 @@ const iniciarPrograma = function(){
         // condição responsável por validar os erros de entrada do usuário
         if(!validacao.validarVazio(numeroFatorial)){
             console.log(tipoErro.erros('numeroFatorialObrigatorio'))
-            return iniciarProgramaNovamente()
+            return iniciarSistemaNovamente()
 
         }else if(!validacao.validarNumero(numeroFatorial)){
             console.log(tipoErro.erros('numeroFatorialInvalido'))
-            return iniciarProgramaNovamente()
+            return iniciarSistemaNovamente()
 
         }else if(numeroFatorial == 0){
             console.log(tipoErro.erros('numeroZeroInvalido'))
-            return iniciarProgramaNovamente()
+            return iniciarSistemaNovamente()
 
         }else if(numeroFatorial == 1){
             console.log(tipoErro.erros('numeroUmInvalido'))
-            return iniciarProgramaNovamente()
+            return iniciarSistemaNovamente()
         
         }
 
@@ -49,38 +40,17 @@ const iniciarPrograma = function(){
 
         if(!validacao.converterNumeroComVirgula(numeroFatorialConvertido)){
             console.log(tipoErro.erros('numeroDecimalInvalido'))
-            return iniciarProgramaNovamente()
+            return iniciarSistemaNovamente()
         }
 
         let resultadoFatorial = calculo.gerarFatorial(numeroFatorialConvertido)
 
         console.log(resultadoFatorial)
 
+        return iniciarSistemaNovamente()
     })
 }
 
-// função responsável por perguntar ao usuário se deseja realizar um novo cálculo
-const iniciarProgramaNovamente = function(){
-    // entrada de dados do usuário se deseja continuar
-    entradaDeDados.question('Deseja realizar outro cálculo? (s/n): ', function(resposta){
-
-        let respostaUsuario = resposta  
-
-        const resultado = validacao.validarIniciarProgramaNovamente(respostaUsuario)
-
-        // condição que válida a resposta desejada pelo usuário
-        if(resultado == true){
-            iniciarPrograma()  
-        
-        }else if(resultado == false){
-            console.log('\nMuito obrigado por utilizar os serviços da Cálculos SA.\n*************************************************')
-            entradaDeDados.close()
-        
-        }else{
-            console.log(tipoErro.erros('iniciarNovamenteInvalida'))
-            iniciarProgramaNovamente()
-        }    
-    })
+module.exports ={
+    iniciarPrograma
 }
-
-iniciarPrograma()

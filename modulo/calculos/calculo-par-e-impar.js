@@ -7,11 +7,12 @@
 
 ****************************************************************************/
 
+
 const gerarParOuImpar = function(numero){
     let resultado = Number(numero)
 
     if(resultado % 2 == 0){
-        resultado = 'par'    
+        resultado = 'par'
 
     }else if(resultado % 2 == 1){
         resultado = 'impar'
@@ -23,46 +24,85 @@ const gerarParOuImpar = function(numero){
     return resultado
 }
 
-const gerarRelatorioParImpar = function(valorInicial, valorFinal){
-    let inicio  = Number(valorInicial)
-    let fim     = Number(valorFinal)
+const gerarPares = function(valorInicial, valorFinal){
 
-    // Acumuladores para Pares
-    let listaPares = "Lista de números Pares\n"
+    let inicio = Number(valorInicial)
+    let contadorFinal = Number(valorFinal)
+
+    let listaPares = "\n================================\n"
+    listaPares += "        LISTA DE PARES\n"
+    listaPares += "================================\n\n"
+
     let contadorPares = 0
+    let contadorInicial = inicio
 
-    // Acumuladores para Ímpares
-    let listaImpares = "\nLista de números Ímpares\n"
-    let contadorImpares = 0
+    while(contadorInicial <= contadorFinal){
 
-    let numeroAtual = inicio
+        let tipoNumero = gerarParOuImpar(contadorInicial)
 
-    while (numeroAtual <= fim) {
-        // 1. Usando sua função que retorna 'par' ou 'impar'
-        let tipoNumero = gerarParOuImpar(numeroAtual)
-
-        if (tipoNumero == 'par') {
-            listaPares += `${numeroAtual}\n`
-            
+        if(tipoNumero == 'par'){
+            listaPares += `${contadorInicial}\n`
             contadorPares++
+        }
 
-        } else if (tipoNumero == 'impar') {
-            listaImpares += `${numeroAtual}\n`
-            
+        contadorInicial++
+    }
+
+    listaPares += `\nQuantidade de números encontrados: ${contadorPares}\n`
+
+    return listaPares
+}
+
+const gerarImpares = function(valorInicial, valorFinal){
+
+    let inicio = Number(valorInicial)
+    let contadorFinal = Number(valorFinal)
+
+    let listaImpares = "\n================================\n"
+    listaImpares += "       LISTA DE ÍMPARES\n"
+    listaImpares += "================================\n\n"
+
+    let contadorImpares = 0
+    let contadorInicial = inicio
+
+    while(contadorInicial <= contadorFinal){
+
+        let tipoNumero = gerarParOuImpar(contadorInicial)
+
+        if(tipoNumero == 'impar'){
+            listaImpares += `${contadorInicial}\n`
             contadorImpares++
         }
 
-        numeroAtual++
+        contadorInicial++
     }
 
-    // Adicionando os rodapés com nomes claros
-    listaPares   += `Qtde de números encontrados: ${contadorPares}\n`
-    listaImpares += `Qtde de números encontrados: ${contadorImpares}\n`
+    listaImpares += `\nQuantidade de números encontrados: ${contadorImpares}\n`
 
-    return listaPares + listaImpares
+    return listaImpares
+}
+
+const gerarOpcaoListaDeEscolha = function(inicial, final, opcao){
+    
+    let opcaoParImparAmbos = Number(opcao)
+
+    if(opcaoParImparAmbos == 1){
+
+        return gerarPares(inicial, final)
+
+    }else if(opcaoParImparAmbos == 2){
+
+        return gerarImpares(inicial, final)
+
+    }else if(opcaoParImparAmbos == 3){
+
+        return gerarPares(inicial, final) + "\n" + gerarImpares(inicial, final)
+
+    }else{
+        return false
+    }
 }
 
 module.exports ={
-    gerarParOuImpar,
-    gerarRelatorioParImpar
+    gerarOpcaoListaDeEscolha
 }

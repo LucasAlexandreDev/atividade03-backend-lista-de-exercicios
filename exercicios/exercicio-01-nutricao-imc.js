@@ -7,23 +7,14 @@
 
 ****************************************************************************/
 
-// import da biblioteca readline 
-const readline = require('readline')
-
-// criação do objeto que armazena a entrada de dados
-const entradaDeDados = readline.createInterface({
-    input:  process.stdin,
-    output: process.stdout
-})
-
 // import dos modulos internos da aplicação
-const validacao = require('../modulo/validacao/validacaoDados.js')
+const validacao = require('../modulo/validacao/validacao-dados.js')
 const tipoErro  = require('../modulo/mensagemErro/imc-erros.js')
 const calculo   = require('../modulo/calculos/calculo-imc.js')
 const regras    = require('../modulo/regraDeNegocio/imc-regras.js')
 
 // função principal do programa
-const iniciarPrograma = function(){
+const iniciarPrograma = function(entradaDeDados, iniciarSistemaNovamente){
     
     // entrada de dados do usuário
     entradaDeDados.question('Digite o nome do(a) Paciente: ', function(nome){
@@ -38,35 +29,35 @@ const iniciarPrograma = function(){
                 // condição responsável por validar os erros de entrada do usuário
                 if(!validacao.validarVazio(nomePaciente) && !validacao.validarVazio(pesoPaciente) && !validacao.validarVazio(alturaPaciente)){
                     console.log(tipoErro.erros('camposObrigatorios'))
-                    return iniciarProgramaNovamente()
+                    return iniciarSistemaNovamente()
 
                 }else if(!validacao.validarVazio(nomePaciente)){
                     console.log(tipoErro.erros('nomeObrigatorio'))
-                    return iniciarProgramaNovamente()
+                    return iniciarSistemaNovamente()
 
                 }else if(!validacao.validarVazio(peso)){
                     console.log(tipoErro.erros('pesoObrigatorio'))
-                    return iniciarProgramaNovamente()
+                    return iniciarSistemaNovamente()
 
                 }else if(!validacao.validarVazio(altura)){
                     console.log(tipoErro.erros('alturaObrigatoria'))
-                    return iniciarProgramaNovamente()
+                    return iniciarSistemaNovamente()
 
                 }else if(!validacao.validarNumero(peso)){
                     console.log(tipoErro.erros('pesoInvalido'))
-                    return iniciarProgramaNovamente()
+                    return iniciarSistemaNovamente()
 
                 }else if(!validacao.validarNumero(altura)){
                     console.log(tipoErro.erros('alturaInvalida'))
-                    return iniciarProgramaNovamente()
+                    return iniciarSistemaNovamente()
 
                 }else if(!validacao.validarNumeroPositivo(peso)){
                     console.log(tipoErro.erros('pesoZeroOuNegativo'))
-                    return iniciarProgramaNovamente()
+                    return iniciarSistemaNovamente()
 
                 }else if(!validacao.validarNumeroPositivo(altura)){
                     console.log(tipoErro.erros('alturaZeroOuNegativa'))
-                    return iniciarProgramaNovamente()
+                    return iniciarSistemaNovamente()
                 }
 
                  // conversão de dados 
@@ -101,33 +92,12 @@ ${diagnostico}
 `)
                 
                 // chama a função para o sistema reinicar novamente 
-                iniciarProgramaNovamente()
+                return iniciarSistemaNovamente()
             })
         })
     })
 }
 
-// função responsável por perguntar ao usuário se deseja realizar um novo cálculo
-const iniciarProgramaNovamente = function() {
-    
-    // entrada de dados do usuário se deseja continuar
-    entradaDeDados.question('Deseja realizar outro cálculo? (s/n): ', function(resposta){
-
-        let respostaUsuario = resposta  
-
-        const resultado = validacao.validarIniciarProgramaNovamente(respostaUsuario)
-
-        // condição que válida a resposta desejada pelo usuário
-        if(resultado == true){
-            iniciarPrograma()  
-        
-        }else if(resultado == false){
-            console.log('\nMuito obrigado por utilizar os serviços da Cálculos SA.\n*************************************************')
-            entradaDeDados.close()
-        
-        }else{
-            console.log(tipoErro.erros('iniciarNovamenteInvalida'))
-            iniciarProgramaNovamente()
-        }    
-    })
+module.exports ={
+    iniciarPrograma
 }

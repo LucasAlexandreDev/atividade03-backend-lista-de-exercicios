@@ -7,22 +7,13 @@
 
 ****************************************************************************/
 
-// import da biblioteca readline 
-const readline = require('readline')
-
-// criação do objeto que armazena a entrada de dados
-const entradaDeDados = readline.createInterface({
-    input:  process.stdin,
-    output: process.stdout
-})
-
 // import dos modulos internos da aplicação
-const validacao = require('../modulo/validacao/validacaoDados.js')
+const validacao = require('../modulo/validacao/validacao-dados.js')
 const tipoErro  = require('../modulo/mensagemErro/tabuada-erros.js')
 const calculo   = require('../modulo/calculos/calculo-tabuada.js')
 
 // função principal do programa
-const iniciarPrograma = function(){
+const iniciarPrograma = function(entradaDeDados, iniciarSistemaNovamente){
     
     // entrada de dados
     entradaDeDados.question('Digite a tabuada inicial: ', function(tabuadaInicial){
@@ -42,60 +33,60 @@ const iniciarPrograma = function(){
                        !validacao.validarVazio(contadorInicial)      && !validacao.validarVazio(contadorFinal)){
 
                         console.log(tipoErro.erros('camposObrigatorios'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
                     
                     }else if(!validacao.validarVazio(valorTabuadaInicial)){
                         console.log(tipoErro.erros('tabuadaInicialObrigatorio'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
                     
                     }else if(!validacao.validarVazio(valorTabuadaFinal)){
                         console.log(tipoErro.erros('tabuadaFinalObrigatorio'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
                     
                     }else if(!validacao.validarVazio(contadorInicial)){
                         console.log(tipoErro.erros('contadorIncialObrigatorio'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
                     
                     }else if(!validacao.validarVazio(contadorFinal)){
                         console.log(tipoErro.erros('contadorFinalObrigatorio'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
                     
                     }else if(!validacao.validarNumeroPositivo(valorTabuadaFinal)){
                         console.log(tipoErro.erros('tabuadaInvalido'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
 
                     }else if(!validacao.validarNumeroPositivo(valorTabuadaFinal)){
                         console.log(tipoErro.erros('tabuadaInvalido'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
 
                     }else if(!validacao.validarNumeroPositivo(contadorInicial)){
                         console.log(tipoErro.erros('contadorInvalido'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
 
                     }else if(!validacao.validarNumeroPositivo(contadorFinal)){
                         console.log(tipoErro.erros('contadorInvalido'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
 
                     }else if(!validacao.validarIntervaloNumerico(tabuadaInicial, 2, 100)){
                         console.log(tipoErro.erros('tabuadaForaDoIntervalo'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
 
                     }else if(!validacao.validarIntervaloNumerico(tabuadaFInal, 2, 100)){
                         console.log(tipoErro.erros('tabuadaForaDoIntervalo'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
                     
                     }else if(!validacao.validarIntervaloNumerico(contadorInicial, 1, 50)){
                         console.log(tipoErro.erros('contadorInvalido'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
                     
                     }else if(!validacao.validarIntervaloNumerico(contadorFinal, 1, 50)){
                         console.log(tipoErro.erros('contadorInvalido'))
-                        return iniciarProgramaNovamente()
+                        return iniciarSistemaNovamente()
                     }
 
                     // chamando a função de gerar tabuada direto sem atribuir uma variável, por conta da função não possuir return
                     calculo.gerarTabuada(valorTabuadaInicial, valorTabuadaFinal, contadorInicial, contadorFinal)
-                    return iniciarProgramaNovamente()
+                    return iniciarSistemaNovamente()
                     
                 })
             })
@@ -103,26 +94,6 @@ const iniciarPrograma = function(){
     }) 
 }
 
-// função responsável por perguntar ao usuário se deseja realizar um novo cálculo
-const iniciarProgramaNovamente = function(){
-    // entrada de dados do usuário se deseja continuar
-    entradaDeDados.question('Deseja realizar outro cálculo? (s/n): ', function(resposta){
-
-        let respostaUsuario = resposta  
-
-        const resultado = validacao.validarIniciarProgramaNovamente(respostaUsuario)
-
-        // condição que válida a resposta desejada pelo usuário
-        if(resultado == true){
-            iniciarPrograma()  
-        
-        }else if(resultado == false){
-            console.log('\nMuito obrigado por utilizar os serviços da Cálculos SA.\n*************************************************')
-            entradaDeDados.close()
-        
-        }else{
-            console.log(tipoErro.erros('iniciarNovamenteInvalida'))
-            iniciarProgramaNovamente()
-        }    
-    })
+module.exports ={
+    iniciarPrograma
 }
