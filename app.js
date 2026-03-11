@@ -41,17 +41,16 @@ const iniciarPrograma = function(){
 `)
 
     entradaDeDados.question('Escolha um exercício: ', function(opcao){
-
         let opcaoUsuario = opcao.trim()
 
         // valida se está vazio
         if(!validacao.validarVazio(opcaoUsuario)){
-            console.log('\nERRO: É obrigatório escolher uma opção.')
+            console.log('ERRO: É obrigatório escolher uma opção.')
             return iniciarPrograma()
 
         // valida se é número
         }else if(!validacao.validarNumero(opcaoUsuario)){
-            console.log('\nERRO: Digite apenas números.')
+            console.log('ERRO: Digite apenas números.')
             return iniciarPrograma()
         }
 
@@ -78,12 +77,12 @@ const iniciarPrograma = function(){
                 break
 
             case '0':
-                console.log('\nEncerrando o sistema...')
+                console.log('Encerrando o sistema Cálculos SA...')
                 entradaDeDados.close()
                 break
 
             default:
-                console.log('\nERRO: Opção inválida.')
+                console.log('ERRO: Opção inválida.')
                 iniciarPrograma()
         }
     })
@@ -94,7 +93,6 @@ const iniciarPrograma = function(){
 const iniciarSistemaNovamente = function(){
 
     entradaDeDados.question('\nDeseja voltar ao menu principal? (s/n): ', function(resposta){
-
         let respostaUsuario = resposta
 
         const resultado = validacao.validarIniciarProgramaNovamente(respostaUsuario)
@@ -103,11 +101,11 @@ const iniciarSistemaNovamente = function(){
             iniciarPrograma()
 
         }else if(resultado == false){
-            console.log('\nSistema finalizado.')
+            console.log('Muito obrigado por utilizar os serviços da Cálculos SA.\n====================================================')
             entradaDeDados.close()
 
         }else{
-            console.log('\nResposta inválida.')
+            console.log('ERRO: Opção inválida. Tente novamente.')
             iniciarSistemaNovamente()
         }
     })
